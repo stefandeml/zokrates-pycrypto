@@ -17,7 +17,6 @@ import bitstring
 payload = {}
 with open("out/proof_data.json") as json_file:
     payload = json.load(json_file)
-print(payload)
 
 
 #%%
@@ -255,7 +254,7 @@ r = Point.decompress(bytes.fromhex(r_hex))
 s = FQ(int(s_hex, 16))
 
 success = pk.verify((r, s), msg)
-print(success)
+assert success == True, "Signature not valid"
 # + BUYER1_KEY='20966a1b510fdcf0caf6ec3cd1f238a5ac23c001dbee68b311276ccf95400df5 1c79b3f2bd10ad0528afb64ee68188665a1e77c7a320ce15e5c4ea4656b5ed0a'
 # // field isVerified = verifyEddsa(R, S, A, M, padding, context)
 nft.push(ZoKratesArg("SignatureR", False, 2, [str(r.x.n), str(r.y.n)]))
@@ -276,25 +275,28 @@ b0 = bitstring.BitArray(int(M0, 16).to_bytes(32, "big")).bin
 # b1 = bitstring.BitArray(int(M1, 16).to_bytes(32, "big")).bin
 args = args + " " + " ".join(b0)
 #%%
-print("signatue")
-print(nft.get_signature())
+# print("signatue")
+# print(nft.get_signature())
 
 #%%
 print("inputs")
 print(nft.get_bitstr())
 
+path = "nft_witness.txt"
+with open(path, "w+") as f:
+    f.write(nft.get_bitstr())
 
-#%%
-print("arg names")
-nft.get_arg_names()
-#%%
-print("public input variables")
-for n in nft.args:
-    if n.is_public:
-        print(n.name)
+# #%%
+# print("arg names")
+# nft.get_arg_names()
+# #%%
+# print("public input variables")
+# for n in nft.args:
+#     if n.is_public:
+#         print(n.name)
 
-#%%
-print("public assignments ")
-for n in nft.args:
-    if n.is_public:
-        print(n.assignment)
+# #%%
+# print("public assignments ")
+# for n in nft.args:
+#     if n.is_public:
+#         print(n.assignment)

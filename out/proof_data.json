@@ -1,0 +1,31 @@
+{ 
+    "public": {
+        "nft_amount": "0000000000000000000000000000000000000000000000000000000000000320",
+        "credit_rating_roothash": "80c88c1b2431e744a45365a873fc14401587c1d95bba9bd8f1b3d6e02b9cf12c",
+        "rating": "64",
+        "document_roothash": "a6ffc566af99b95623d37444ff11f11d4df841f37fb3fd6a4d94b18564ab12d3"
+    },
+    "private": {
+    "buyer_pubkey" : "17e7292a40849d8a2f75d9e3c7ad44bd02af5c240410f2ad912721fa748f4e59",
+    "buyer_signature": "8428de1653107274b9e4f2db38b7a978469c211c787f86da8717bb00a01f81343f70250054358540405ed3bcdfb0f7e399e64da2c5f6d58e2333a07ed4e50eb",
+        "buyer_rating_proof": { 
+            "hashes": ["f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b", "276064361710e861eb6168a0082d96cbfbbe4ee81d0e99276b9a1ce1c2b1512b"],
+            "right": [false, false],
+            "value": "000000000000000000000000000000000000000117e7292a40849d8a2f75d9e3c7ad44bd02af5c240410f2ad912721fa748f4e5964"
+        },
+        "document_invoice_amount_proof": {
+            "hashes": ["c7235dab591f8de2d5a4388e047a3a749d4bebf0ee8a6239e4742e92f19aa80c", "0f90b068c694ffca0befee2f46c86cabacb32ca04b6dfeea4eeeae93ec132420", "a9f86fe517cae12b6972bb4da6f8a3d739530e1d8b78297229c9c4c2968f4cc9"],
+            "right": [false, false, false],
+            "value": "00000000000000000000000000000000000000000000000000000000000003e8",
+            "salt": "c6d318e0b3d8b2c7bdd8141a68158bb51a0175ba1bcdf8515c63c5f721ca28d3",
+            "property": "00000000000000000000000000000000000000000000000000000068656c6c6f"
+        },
+        "document_invoice_buyer_proof": {
+            "hashes": ["8adadbd93c502306851ff731576ecf864122e0ad8c82c472c91385aeae2e75aa", "0f90b068c694ffca0befee2f46c86cabacb32ca04b6dfeea4eeeae93ec132420", "a9f86fe517cae12b6972bb4da6f8a3d739530e1d8b78297229c9c4c2968f4cc9"],
+            "right": [true, false, false],
+            "value": "0000000000000000000000000000000000000001",
+            "salt": "f21de49d9d71722938ff9478dda04024cd509a4f799eccd6f706cb050b9a6094",
+            "property": "00000000000000000000000000000000000000000000000000000068656c6c6f"
+        }
+    }
+}
