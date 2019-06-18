@@ -282,7 +282,7 @@ args = args + " " + " ".join(b0)
 print("inputs")
 print(nft.get_bitstr())
 
-path = "nft_witness.txt"
+path = "out/nft_witness.txt"
 with open(path, "w+") as f:
     f.write(nft.get_bitstr())
 
