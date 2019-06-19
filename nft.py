@@ -167,7 +167,7 @@ nft.push(
     ZoKratesArg(
         "invoiceAmountProperty",
         False,
-        256,
+        64,
         hex_to_args(payload["private"]["document_invoice_amount_proof"]["property"]),
     )
 )
@@ -182,7 +182,7 @@ nft.push(
 
 directions = payload["private"]["document_invoice_amount_proof"]["right"]
 directions = ["1" if d == True else "0" for d in directions]
-nft.push(ZoKratesArg("invoiceAmountTreeDirection", False, 3, "".join(directions)))
+nft.push(ZoKratesArg("invoiceAmountTreeDirection", False, 8, "".join(directions)))
 
 
 hashes = payload["private"]["document_invoice_amount_proof"]["hashes"]
@@ -207,7 +207,7 @@ nft.push(
     ZoKratesArg(
         "invoiceBuyerProperty",
         False,
-        256,
+        64,
         hex_to_args(payload["private"]["document_invoice_buyer_proof"]["property"]),
     )
 )
@@ -222,7 +222,7 @@ nft.push(
 
 directions = payload["private"]["document_invoice_buyer_proof"]["right"]
 directions = ["1" if d == True else "0" for d in directions]
-nft.push(ZoKratesArg("invoiceBuyerTreeDirection", False, 3, "".join(directions)))
+nft.push(ZoKratesArg("invoiceBuyerTreeDirection", False, 8, "".join(directions)))
 
 
 hashes = payload["private"]["document_invoice_buyer_proof"]["hashes"]
@@ -241,19 +241,24 @@ from zokrates.eddsa import PrivateKey, PublicKey
 sig_hex = payload["private"]["buyer_signature"]
 r_hex = sig_hex[0:64]
 s_hex = sig_hex[64:128]
-msg = (
+msgForSign = (
     payload["public"]["document_roothash"]
-    + "0000000000000000000000000000000000000000000000000000000000000000"
+    + "00" # Need to append signature transition, might pass it as parameter in JSON
+)
+msgForNext = (
+  payload["public"]["document_roothash"]
+  + "0000000000000000000000000000000000000000000000000000000000000000"
 )
 # msg = msg.encode("ascii")
-msg = bytes.fromhex(msg)
+msgForSign = bytes.fromhex(msgForSign)
+msgForNext = bytes.fromhex(msgForNext)
 pk_hex = payload["private"]["buyer_pubkey"]
 
 pk = PublicKey(Point.decompress(bytes.fromhex(pk_hex)))
 r = Point.decompress(bytes.fromhex(r_hex))
 s = FQ(int(s_hex, 16))
 
-success = pk.verify((r, s), msg)
+success = pk.verify((r, s), msgForSign)
 assert success == True, "Signature not valid"
 # + BUYER1_KEY='20966a1b510fdcf0caf6ec3cd1f238a5ac23c001dbee68b311276ccf95400df5 1c79b3f2bd10ad0528afb64ee68188665a1e77c7a320ce15e5c4ea4656b5ed0a'
 # // field isVerified = verifyEddsa(R, S, A, M, padding, context)
@@ -269,8 +274,8 @@ sig_S = s
 args = [sig_R.x, sig_R.y, sig_S, pk.p.x.n, pk.p.y.n]
 args = " ".join(map(str, args))
 
-M0 = msg.hex()[:64]
-M1 = msg.hex()[64:]
+M0 = msgForNext.hex()[:64]
+M1 = msgForNext.hex()[64:]
 b0 = bitstring.BitArray(int(M0, 16).to_bytes(32, "big")).bin
 # b1 = bitstring.BitArray(int(M1, 16).to_bytes(32, "big")).bin
 args = args + " " + " ".join(b0)
