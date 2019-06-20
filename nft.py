@@ -280,8 +280,8 @@ b0 = bitstring.BitArray(int(M0, 16).to_bytes(32, "big")).bin
 # b1 = bitstring.BitArray(int(M1, 16).to_bytes(32, "big")).bin
 args = args + " " + " ".join(b0)
 #%%
-# print("signatue")
-# print(nft.get_signature())
+print("signatue")
+print(nft.get_signature())
 
 #%%
 print("inputs")
