@@ -222,16 +222,16 @@ nft.push(
 
 directions = payload["private"]["document_invoice_buyer_proof"]["right"]
 directions = ["1" if d == True else "0" for d in directions]
-nft.push(ZoKratesArg("invoiceBuyerTreeDirection", False, 8, "".join(directions)))
+# nft.push(ZoKratesArg("invoiceBuyerTreeDirection", False, 8, "".join(directions)))
 
 
-hashes = payload["private"]["document_invoice_buyer_proof"]["hashes"]
-for i, hash in enumerate(hashes):
-    nft.push(
-        ZoKratesArg(
-            "invoiceBuyerTreeDigests{}".format(i), False, 256, hex_to_args(hash)
-        )
-    )
+# hashes = payload["private"]["document_invoice_buyer_proof"]["hashes"]
+# for i, hash in enumerate(hashes):
+#     nft.push(
+#         ZoKratesArg(
+#             "invoiceBuyerTreeDigests{}".format(i), False, 256, hex_to_args(hash)
+#         )
+#     )
 #%%
 
 from zokrates.field import FQ
